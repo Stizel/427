@@ -1,0 +1,169 @@
+/* Указываем box sizing */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Убираем внутренние отступы */
+ul[class],
+ol[class] {
+    padding: 0;
+}
+
+/* Убираем внешние отступы */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+    margin: 0;
+}
+
+/* Выставляем основные настройки по-умолчанию для body */
+body {
+    min-height: 100vh;
+    scroll-behavior: smooth;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+}
+
+/* Удаляем стандартную стилизацию для всех ul и il, у которых есть атрибут class*/
+ul[class],
+ol[class] {
+    list-style: none;
+}
+
+/* Элементы a, у которых нет класса, сбрасываем до дефолтных стилей */
+a:not([class]) {
+    text-decoration-skip-ink: auto;
+}
+
+/* Упрощаем работу с изображениями */
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* Указываем понятную периодичность в потоке данных у article*/
+article > * + * {
+    margin-top: 1em;
+}
+
+/* Наследуем шрифты для инпутов и кнопок */
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+
+.page {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: "Roboto",sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 56px;
+    margin: 0 auto;
+    width: 661px;
+    height: 763px;
+    background-color: #C4C4C4;
+    padding: 60px 80px
+}
+
+.page__search {
+    min-height: 61px;
+}
+
+.autocomplete {
+    min-width: 500px;
+    font-size: 30px;
+}
+
+.autocomplete__list {
+    display: flex;
+    align-items: center;
+    max-height: 44px;
+    font-size: 30px;
+    line-height: 35px;
+    background: #E3E3E3;
+    border: 2px solid #000000;
+}
+
+.autocomplete__link {
+    text-decoration: none;
+    color: black;
+    font-size: 30px;
+}
+
+.results {
+    min-width: 500px;
+    max-height: 315px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.results__item {
+    padding: 8px 16px;
+    display: flex;
+    justify-content: space-between;
+
+    min-width: 500px;
+    min-height: 100px;
+    background-color: #E27BEB;
+    border: 1px solid #000000;
+}
+
+.results__info {
+
+    font-size: 24px;
+    line-height: 28px;
+}
+
+.btn-close {
+    position: relative;
+    top:20px;
+    right:30px;
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    border: none;
+    font: inherit;
+    color: inherit;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.btn-close:before,
+.btn-close:after {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 54px;
+    height: 4px;
+    background: #FF0000;
+}
+
+.btn-close:before {
+    transform: rotate(45deg);
+}
+
+.btn-close:after {
+    transform: rotate(-45deg);
+}
+
+
+

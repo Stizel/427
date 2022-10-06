@@ -1,61 +1,26 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>GithubApi</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link href="style.css" rel="stylesheet">
+
 </head>
 <body>
-<div class="page">
-    <header>
-
-        <input type="text" name="search" id="search" class="page__search">
-
-        <ul class="autocomplete"></ul>
-
-    </header>
-    <ul class="results">
-        <li class="results__item">
-            <ul class="results__info">
-                <li>Name: react</li>
-                <li>Owner: facebook</li>
-                <li>Stars: 145231</li>
-            </ul>
-            <button class="btn-close"></button>
-        </li>
-        <li class="results__item">
-            <ul class="results__info">
-                <li>Name: react</li>
-                <li>Owner: facebook</li>
-                <li>Stars: 145231</li>
-            </ul>
-            <button class="btn-close"></button>
-        </li>
-        <li class="results__item">
-            <ul class="results__info">
-                <li>Name: react</li>
-                <li>Owner: facebook</li>
-                <li>Stars: 145231</li>
-            </ul>
-            <button class="btn-close"></button>
-        </li>
-        <li class="results__item">
-            <ul class="results__info">
-                <li>Name: react</li>
-                <li>Owner: facebook</li>
-                <li>Stars: 145231</li>
-            </ul>
-            <button class="btn-close"></button>
-        </li>
-    </ul>
-
+<div class="container">
+    <div class="container__inner">
+        <input class="searching" autofocus>
+        <ul class="results">
+        </ul>
+        <div class="selected">
+        </div>
+    </div>
 </div>
-<script src="index.js"></script>
+    <script src="index.js"></script>
 </body>
 </html>

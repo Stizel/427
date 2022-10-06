@@ -1,54 +1,103 @@
-const div = document.querySelector(".btn-close");
-console.dir(div);
+const debounce = (fn, debounceTime) => {
+    let timer;
+    return function (...args) {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+            fn.apply(this, args);
+        }, debounceTime);
+    };
+};
 
-const autoCompleteList = document.querySelector(".autocomplete");
+const createEl = (elTag, elClass, nodeName) => {
+    const el = document.createElement(elTag);
+    if (elClass) el.classList.add(elClass);
+    nodeName.append(el);
+    return el;
+};
 
+const createSelectedInfo = (obj, node) => {
+    for (let key in obj) {
+        const selectedItemEl = createEl("li", "selected__text", node);
+        selectedItemEl.textContent = `${key}: ${obj[key]}`;
+    }
+};
 
+const clearSearchResults = () => {
+    const searchResultsList = document.querySelectorAll(".results__item");
+    searchResultsList.forEach((item) => {
+        item.remove();
+    });
+};
 
-let response = [{
-    name: "Redux-1",
-    Owner: "Facebook",
-    Stars: 145231
-},
-    {name: "Redux-trunk-2"},
-    {name: "Redux-actions-3"},
-    {name: "React-redux-4"},
-    {name: "Redux-actions-5"},
-    {name: "React-redux-6"},
-    {name: "Redux-saga-7"}
-];
+const deleteSelectedList = (e) => {
+    const item = e.target.closest(".selected__item");
+    item.remove();
+};
 
-let autoComplete = response.slice(0,5)
-console.log(autoComplete)
+const addSelectedList = (item) => {
+    const repoInfo = {
+        Name: item.name,
+        Owner: item.owner.login,
+        Stars: item.stargazers_count
+    };
 
-const faragment = document.createDocumentFragment();
+    const selected = document.querySelector(".selected");
+    const selectedItem = createEl("div", "selected__item", selected);
+    const selectedItemInner = createEl("ul", "selected__info", selectedItem);
 
-autoComplete.forEach((repo) => {
-    const li = document.createElement('li');
-    li.classList.add('autocomplete__list');
-    const link = document.createElement("a");
-    link.classList.add('autocomplete__link');
-    link.textContent = repo.name;
-    li.appendChild(link);
-    faragment.appendChild(li);
+    createSelectedInfo(repoInfo, selectedItemInner);
+
+    const selectedDelete = createEl("button", "selected__delete", selectedItem);
+    const selectedDeleteImg = createEl("img", null, selectedDelete);
+    selectedDeleteImg.src = "img/Delete.svg";
+
+    selectedDelete.addEventListener("click", deleteSelectedList);
+    input.value = "";
+    input.focus();
+    clearSearchResults();
+};
+
+const addSearchResult = (items) => {
+    items.forEach((item) => {
+
+        const searchResultsList = document.querySelectorAll(".results__item");
+
+        if (searchResultsList.length < 5) {
+            const searchItem = document.createElement("li");
+            searchItem.classList.add("results__item");
+            searchItem.textContent = item.name;
+            searchItem.tabIndex = 0;
+
+            document.querySelector(".results").append(searchItem);
+
+            searchItem.addEventListener("click", () => addSelectedList(item));
+            searchItem.addEventListener("keypress", (e) => {
+                if (e.key === "Enter") addSelectedList(item);
+            });
+        }
+    });
+};
+
+const sendRequest = async () => {
+    const inputValue = input.value.trim();
+    if (inputValue !== "") {
+        const url = `https://api.github.com/search/repositories?q=${inputValue}`;
+        const response = await fetch(url);
+        const data = await response.json();
+        clearSearchResults();
+        addSearchResult(data.items);
+    } else clearSearchResults();
+};
+let input = document.querySelector(".searching");
+
+const sendRequestDebounce = debounce(sendRequest, 500);
+input.addEventListener("input", sendRequestDebounce);
+window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+        clearSearchResults();
+        input.value = "";
+    }
 });
 
-autoCompleteList.appendChild(faragment);
 
 
-
-
-
-// const octokit = new Octokit({
-//     auth: 'YOUR-TOKEN'
-// })
-//
-// await octokit.request('GET /search/repositories', {})
-//
-// const xhr = new XMLHttpRequest();
-// xhr.open("get", "https://api.github.com/search/repositories");
-// xhr.addEventListener('load',()=>{
-//     console.log(xhr.responseText)
-// })
-//
-// xhr.send()
